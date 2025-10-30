@@ -4,12 +4,12 @@ include 'db_connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $username = $_POST["username"];
   $password = $_POST["password"];
-  $fullname = $_POST["fullname"];
-  $email = $_POST["email"];
-  $program = $_POST["program"];
+  $studentname = $_POST["studentname"];
+  $email = $_POST["emailaddress"];
+  $code = $_POST["coursecode"];
 
-  $query = "INSERT INTO students (username, password, full_name, email, program)
-            VALUES ('$username', '$password', '$fullname', '$email', '$program')";
+  $query = "INSERT INTO students (Username, Password, StudentName, EmailAddress, CourseCode)
+            VALUES ('$username', '$password', '$studentname', '$email', '$code')";
 
   if (mysqli_query($conn, $query)) {
     echo "<script>alert('Registration successful! Please login.'); window.location='index.php';</script>";
@@ -30,9 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form method="POST">
   <input type="text" name="username" placeholder="Username" required><br>
   <input type="password" name="password" placeholder="Password" required><br>
-  <input type="text" name="fullname" placeholder="Full Name" required><br>
-  <input type="email" name="email" placeholder="Email" required><br>
-  <input type="text" name="program" placeholder="Program" required><br>
+  <input type="text" name="studentname" placeholder="Student Name" required><br>
+  <input type="email" name="emailaddress" placeholder="Email Address" required><br>
+  <input type="text" name="coursecode" placeholder="Course Code" required><br>
   <button type="submit">Register</button>
 </form>
 </body>
