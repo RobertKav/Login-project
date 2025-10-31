@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 session_start();
 include 'db_connect.php';
 
@@ -9,34 +7,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["Password"];
 
     // Check if user is admin
-    $adminQuery = "SELECT * FROM administrators WHERE UserName='$username' AND Password='$password'";
+    $adminQuery = "SELECT * FROM Administrators WHERE UserName='$username' AND Password='$password'";
     $adminResult = mysqli_query($conn, $adminQuery);
-
-    if (!$adminResult) {
-        die("Admin query error: " . mysqli_error($conn));
-    }
 
     if (mysqli_num_rows($adminResult) == 1) {
         $_SESSION["Admin"] = $username;
-        echo "<script>alert('Admin login successful! Redirecting...');</script>";
+        header("Location: admin_dashboard.php");
         exit;
     }
 
     // Check if user is student
-    $studentQuery = "SELECT * FROM students WHERE UserName='$username' AND Password='$password'";
+    $studentQuery = "SELECT * FROM Students WHERE UserName='$username' AND Password='$password'";
     $studentResult = mysqli_query($conn, $studentQuery);
-
-    if (!$studentResult) {
-        die("Student query error: " . mysqli_error($conn));
-    }
 
     if (mysqli_num_rows($studentResult) == 1) {
         $_SESSION["Student"] = $username;
-        echo "<script>alert('Student login successful! Redirecting...');</script>";
+        header("Location: student_dashboard.php");
         exit;
     }
 
-    // If no match found
     $error = "Invalid username or password!";
 }
 ?>
